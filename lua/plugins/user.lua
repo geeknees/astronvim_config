@@ -1,4 +1,4 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+-- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
 -- You can also add or configure plugins by creating files in this `plugins/` folder
 -- PLEASE REMOVE THE EXAMPLES YOU HAVE NO INTEREST IN BEFORE ENABLING THIS FILE
@@ -9,7 +9,7 @@ return {
 
   -- == Examples of Adding Plugins ==
 
-  "andweeb/presence.nvim",
+  -- "andweeb/presence.nvim",
   {
     "ray-x/lsp_signature.nvim",
     event = "BufRead",
@@ -85,4 +85,55 @@ return {
       )
     end,
   },
+
+  -- https://github.com/nvimtools/none-ls.nvim/issues/3
+  {
+    "nvimtools/none-ls.nvim",
+    dependencies = "davidmh/cspell.nvim",
+    config = function()
+      local null_ls = require "null-ls"
+      local cspell = require "cspell"
+      local cspell_config = {
+        diagnostics_postprocess = function(diagnostic)
+          diagnostic.severity = vim.diagnostic.severity["HINT"] -- ERROR, WARN, INFO, HINT
+        end,
+        config = {
+          find_json = function(_) return vim.fn.expand "~/.config/nvim/cspell.json" end,
+          on_success = function(cspell_config_file_path, params, action_name)
+            if action_name == "add_to_json" then
+              os.execute(
+                string.format(
+                  "cat %s | jq -S '.words |= sort' | tee %s > /dev/null",
+                  cspell_config_file_path,
+                  cspell_config_file_path
+                )
+              )
+            end
+          end,
+        },
+      }
+      null_ls.setup {
+        sources = {
+          cspell.diagnostics.with(cspell_config),
+          cspell.code_actions.with(cspell_config),
+        },
+        handlers = handlers,
+        on_attach = on_attach,
+      }
+    end,
+  },
+
+  { "tpope/vim-rails", lazy = false },
+  { "thinca/vim-ref", lazy = false },
+  {
+    "ntpeters/vim-better-whitespace",
+    lazy = false,
+  },
+  { "andymass/vim-matchup", lazy = false },
+  { "vim-test/vim-test", lazy = false },
+  { "wakatime/vim-wakatime", lazy = false },
+  { "github/copilot.vim", lazy = false },
+  -- { "ActivityWatch/aw-watcher-vim" },
+  -- { "rhysd/ghpr-blame.vim",  lazy = false },
+  -- { "zalgo3/vim-chatgpt",    branch = "nvim" },
 }
