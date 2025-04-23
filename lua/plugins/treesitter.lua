@@ -13,9 +13,6 @@ return {
       "javascript",
       "ruby",
       "solidity",
-      "tsx",
-      "typescript",
-      "astro",
     },
   },
 }

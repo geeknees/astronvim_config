@@ -22,8 +22,6 @@ return {
 
         -- install any other package
         "tree-sitter-cli",
-        "typescript-language-server",
-        "astro-language-server",
         "ruby-lsp",
         "solidity",
         "solhint",
