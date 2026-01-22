@@ -138,7 +138,7 @@ return {
   { "andymass/vim-matchup", lazy = false },
   { "vim-test/vim-test", lazy = false },
   { "wakatime/vim-wakatime", lazy = false },
-  { "github/copilot.vim", lazy = false },
+  -- { "github/copilot.vim", lazy = false },
   -- { "ActivityWatch/aw-watcher-vim" },
   -- { "rhysd/ghpr-blame.vim",  lazy = false },
   -- { "zalgo3/vim-chatgpt",    branch = "nvim" },

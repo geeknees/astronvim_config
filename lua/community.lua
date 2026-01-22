@@ -9,6 +9,7 @@ return {
   "AstroNvim/astrocommunity",
   { import = "astrocommunity.pack.lua" },
   -- import/override with your plugins folder
+  { import = "astrocommunity.completion.copilot-lua" },
   { import = "astrocommunity.recipes.vscode" },
   { import = "astrocommunity.pack.astro" },
   { import = "astrocommunity.pack.typescript" },
